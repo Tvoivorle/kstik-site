@@ -7,15 +7,16 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f6f7f9;
+      --bg: #f2f4f3;
       --panel: #ffffff;
-      --ink: #17202a;
-      --muted: #697586;
-      --line: #d7dde5;
-      --accent: #1b6f6a;
-      --accent-2: #265c99;
-      --answer-bg: #eef8f4;
-      --solution-bg: #f4f6fb;
+      --ink: #1f2933;
+      --muted: #66737f;
+      --line: #d7ded9;
+      --accent: #3d8b2f;
+      --accent-dark: #256d22;
+      --accent-2: #0f6f96;
+      --answer-bg: #eef8ec;
+      --solution-bg: #f7f8f8;
       --mark: #fff2a8;
     }
     * { box-sizing: border-box; }
@@ -30,14 +31,40 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(246, 247, 249, 0.94);
+      background: #fff;
       border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(31, 41, 51, 0.08);
+    }
+    .moodle-strip {
+      min-height: 36px;
+      background: linear-gradient(180deg, #48a83f 0%, #2f8b2f 100%);
+      color: #fff;
+      border-bottom: 1px solid #247323;
+      font-size: 13px;
+    }
+    .moodle-strip-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .moodle-brand {
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+    .moodle-nav {
+      display: flex;
+      gap: 18px;
+      color: rgba(255,255,255,0.92);
+      white-space: nowrap;
     }
     .topbar-inner {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 18px 24px;
+      padding: 14px 24px;
       display: grid;
       grid-template-columns: 1fr minmax(260px, 420px);
       gap: 18px;
@@ -45,9 +72,10 @@
     }
     h1 {
       margin: 0;
-      font-size: 24px;
-      font-weight: 750;
+      font-size: 22px;
+      font-weight: 600;
       letter-spacing: 0;
+      color: #25313b;
     }
     .summary {
       margin-top: 5px;
@@ -63,10 +91,10 @@
     #search {
       width: 100%;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 4px;
       padding: 11px 12px;
       font-size: 15px;
-      background: #fff;
+      background: #f8faf9;
       color: var(--ink);
       outline: none;
     }
@@ -76,7 +104,7 @@
     }
     #clear {
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 4px;
       background: #fff;
       color: var(--ink);
       padding: 10px 12px;
@@ -88,33 +116,58 @@
       margin: 0 auto;
       padding: 22px 24px 60px;
     }
+    .breadcrumb {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .breadcrumb span {
+      color: #2a6f96;
+    }
+    .page-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
     .filters {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 16px;
     }
+    .page-panel .filters {
+      margin-bottom: 0;
+    }
     .filter {
       border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
+      border-radius: 3px;
+      background: #f7f9f8;
       padding: 8px 12px;
       cursor: pointer;
       font-size: 14px;
       color: var(--muted);
     }
     .filter.active {
-      background: var(--ink);
+      background: var(--accent);
       color: #fff;
-      border-color: var(--ink);
+      border-color: var(--accent-dark);
     }
     .question-card {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 18px;
-      margin: 0 0 14px;
-      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+      border-radius: 3px;
+      padding: 14px 16px;
+      margin: 0 0 10px;
+      box-shadow: none;
+    }
+    .question-card:hover {
+      border-color: #b9c8bd;
     }
     .question-head {
       display: grid;
@@ -125,13 +178,14 @@
     .qnum {
       width: 44px;
       min-height: 44px;
-      border-radius: 8px;
-      background: #e8eef5;
-      color: var(--accent-2);
+      border-radius: 3px;
+      background: #edf6ec;
+      color: var(--accent-dark);
       display: grid;
       place-items: center;
       font-weight: 750;
       font-size: 16px;
+      border: 1px solid #cfe5ca;
     }
     .meta {
       text-transform: uppercase;
@@ -156,7 +210,7 @@
     }
     .option {
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 3px;
       padding: 10px 12px;
       display: grid;
       grid-template-columns: 32px 1fr auto;
@@ -165,7 +219,7 @@
       background: #fff;
     }
     .option.correct {
-      border-color: rgba(27, 111, 106, 0.38);
+      border-color: #b9d9b2;
       background: var(--answer-bg);
       font-weight: 700;
     }
@@ -175,7 +229,7 @@
     }
     .correct-badge {
       align-self: start;
-      border-radius: 999px;
+      border-radius: 3px;
       background: var(--accent);
       color: #fff;
       font-size: 12px;
@@ -184,9 +238,9 @@
     }
     .answer-block, .solution {
       margin-top: 14px;
-      border-radius: 8px;
+      border-radius: 3px;
       padding: 12px 14px;
-      border: 1px solid rgba(27, 111, 106, 0.25);
+      border: 1px solid #c7e3bf;
       background: var(--answer-bg);
     }
     .solution {
@@ -201,7 +255,7 @@
     .warning-label {
       display: inline-block;
       margin: 0 0 8px;
-      border-radius: 999px;
+      border-radius: 3px;
       background: #d64545;
       color: #fff;
       font-size: 12px;
@@ -240,7 +294,7 @@
       max-width: min(100%, 760px);
       height: auto;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 3px;
       background: #fff;
       padding: 3px;
     }
@@ -256,7 +310,7 @@
       text-align: center;
       color: var(--muted);
       border: 1px dashed var(--line);
-      border-radius: 8px;
+      border-radius: 3px;
       background: #fff;
     }
     .empty.visible { display: block; }
@@ -269,6 +323,12 @@
       font-weight: 650;
     }
     @media (max-width: 780px) {
+      .moodle-strip-inner {
+        padding: 8px 16px;
+      }
+      .moodle-nav {
+        display: none;
+      }
       .topbar-inner {
         grid-template-columns: 1fr;
         padding: 16px;
@@ -312,6 +372,16 @@
 </head>
 <body>
   <header class="topbar">
+    <div class="moodle-strip">
+      <div class="moodle-strip-inner">
+        <div class="moodle-brand">СДО ТИМАкад</div>
+        <nav class="moodle-nav" aria-label="Навигация">
+          <span>В начало</span>
+          <span>Мои курсы</span>
+          <span>Банк вопросов</span>
+        </nav>
+      </div>
+    </div>
     <div class="topbar-inner">
       <div>
         <h1>КСТИК — вопросы, ответы и решения</h1>
@@ -328,11 +398,16 @@
     </div>
   </header>
   <main>
-    <div class="filters" aria-label="Фильтры">
-      <button class="filter active" data-type="all" type="button">Все</button>
-      <button class="filter" data-type="MC" type="button">Один ответ</button>
-      <button class="filter" data-type="MA" type="button">Несколько</button>
-      <button class="filter" data-type="SA" type="button">Задачи</button>
+    <div class="breadcrumb">
+      <span>В начало</span> / <span>Мои курсы</span> / <span>КСТИК</span> / Вопросы
+    </div>
+    <div class="page-panel">
+      <div class="filters" aria-label="Фильтры">
+        <button class="filter active" data-type="all" type="button">Все</button>
+        <button class="filter" data-type="MC" type="button">Один ответ</button>
+        <button class="filter" data-type="MA" type="button">Несколько</button>
+        <button class="filter" data-type="SA" type="button">Задачи</button>
+      </div>
     </div>
     <div id="questions">
       
